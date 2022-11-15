@@ -19,7 +19,7 @@ ext['git.revision.abbrev'] = ext.git.head().abbreviatedId
 ext['docker.base.image'] = 'openjdk:8-jre-alpine'
 ext['docker.maintainer'] = 'admin@sitewhere.com'
 
-ext['sitewhere.microservice.api.version'] = '3.0.11'
+ext['sitewhere.microservice.api.version'] = '3.0.11e'
 ext['sitewhere.integration.api.version'] = '3.0.2'
 ext['kafka.version'] = '2.0.0'
 ext['protobuf.version'] = '3.5.1'
@@ -144,6 +144,18 @@ subprojects {
 		} else {
 		    tags = ["${dockerRepository}/sitewhere/${project.name}:debug-${version}"]		
 		}
+	}
+
+/*
+	task dockerPushImage(type: com.bmuschko.gradle.docker.tasks.image.DockerPushImage, dependsOn: dockerImage) {
+		imageName= "sitewhere/${project.name}:${version}"
+	}
+*/
+	task dockerPushImage(type: Exec, dependsOn: dockerImage) {
+		println "${dockerRepository}/sitewhere/${project.name}:${version}"
+
+		commandLine = ['docker', 'push', "${dockerRepository}/sitewhere/${project.name}:${version}"]
+		
 	}
 
     // Common dependencies used for all projects.
