@@ -140,9 +140,9 @@ subprojects {
 	task dockerImage(type: com.bmuschko.gradle.docker.tasks.image.DockerBuildImage, dependsOn: copyQuarkusToDocker) {
 	    inputDir = project.file('build/docker')
 		if(!project.hasProperty("debug")) {
-		    tags = ["${dockerRepository}/sitewhere/${project.name}:${version}"]
+		    tags = ["${dockerRepository}/grosinosky/${project.name}:${version}"]
 		} else {
-		    tags = ["${dockerRepository}/sitewhere/${project.name}:debug-${version}"]		
+		    tags = ["${dockerRepository}/grosinosky/${project.name}:debug-${version}"]		
 		}
 	}
 
@@ -152,9 +152,9 @@ subprojects {
 	}
 */
 	task dockerPushImage(type: Exec, dependsOn: dockerImage) {
-		println "${dockerRepository}/sitewhere/${project.name}:${version}"
+		println "${dockerRepository}/grosinosky/${project.name}:${version}"
 
-		commandLine = ['docker', 'push', "${dockerRepository}/sitewhere/${project.name}:${version}"]
+		commandLine = ['docker', 'push', "${dockerRepository}/grosinosky/${project.name}:${version}"]
 		
 	}
 
